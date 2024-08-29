@@ -28,12 +28,25 @@ class TokenCreateView(APIView):
         owner = serializer.validated_data.get("owner")
         unique_hash = generate_unique_hash()
 
-        token = Token.objects.create(
-            unique_hash=unique_hash, media_url=media_url, owner=owner
-        )
-
         try:
-            token = create_token_in_blockchain(token)
+            token_data = {
+                "unique_hash": unique_hash,
+                "media_url": media_url,
+                "owner": owner
+            }
+
+            tx_hash = create_token_in_blockchain(token_data)
+
+            if tx_hash:
+                token = Token.objects.create(
+                    unique_hash=unique_hash,
+                    media_url=media_url,
+                    owner=owner,
+                    tx_hash=tx_hash
+                )
+            else:
+                raise Exception("Transaction failed: tx_hash is empty")
+
         except Exception as e:
             return Response(
                 {"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
