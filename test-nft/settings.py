@@ -48,9 +48,9 @@ REST_FRAMEWORK = {
     "MAX_PAGE_SIZE": 500,
 }
 
-ROOT_URLCONF = "backend.urls"
+ROOT_URLCONF = "test-nft.urls"
 
-WSGI_APPLICATION = "backend.wsgi.application"
+WSGI_APPLICATION = "test-nft.wsgi.application"
 
 DATABASES = {
     "default": {

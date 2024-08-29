@@ -13,7 +13,7 @@ services:
 
   backend:
     build: .
-    container_name: backend
+    container_name: test-nft
     env_file:
       - .env.docker
     depends_on:
