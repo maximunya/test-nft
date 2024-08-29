@@ -65,6 +65,7 @@ DATABASES = {
 
 INFURA_URL = os.environ.get('INFURA_URL')
 CONTRACT_ADDRESS = os.environ.get('CONTRACT_ADDRESS')
+CONTRACT_ABI = os.environ.get('CONTRACT_ABI')
 PUBLIC_ADDRESS = os.environ.get('PUBLIC_ADDRESS')
 PRIVATE_KEY = os.environ.get('PRIVATE_KEY')
 

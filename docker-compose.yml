@@ -1,0 +1,27 @@
+services:
+  postgres:
+    image: postgres
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  backend:
+    build: .
+    container_name: backend
+    env_file:
+      - .env.docker
+    depends_on:
+      postgres:
+        condition: service_started
+    ports:
+      - "8000:8000"
+    restart: on-failure
+
+volumes:
+  pg_data:
