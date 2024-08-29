@@ -1,4 +1,4 @@
-FROM 3.11.9-alpine
+FROM python:3.11-slim
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
@@ -10,9 +10,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . /app/
 
-RUN python manage.py collectstatic --no-input
-
-RUN python manage.py migrate
-RUN python manage.py shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); if not User.objects.filter(username='admin').exists(): User.objects.create_superuser('admin', 'admin@example.com', 'admin')"
-
-CMD gunicorn backend.wsgi:application --bind 0.0.0.0:8000 --workers 3
+CMD python manage.py migrate \
+    && python manage.py shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.filter(username='admin').exists() or User.objects.create_superuser('admin', 'admin@example.com', 'admin')" \
+    && python manage.py collectstatic --no-input \
+    && gunicorn test-nft.wsgi:application --bind 0.0.0.0:8000 --workers 3
