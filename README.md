@@ -1,4 +1,4 @@
-# NFT Backend Service
+# NFT Service
 
 This project is a backend service built using Django and Django REST Framework (DRF) to interact with an ERC-721 NFT smart contract on the Ethereum blockchain (Sepolia Testnet). The service allows you to mint new NFTs and retrieve information about existing NFTs via a REST API.
 
@@ -126,9 +126,7 @@ After starting the Docker containers, you can access the API at [http://localhos
 
 Feel free to submit issues or pull requests if you want to contribute to the project.
 
-
-
-## NFT Backend Service (Сервис бэкенда NFT)
+# NFT-сервис 
 
 Этот проект представляет собой бэкенд-сервис, построенный на базе Django и Django REST Framework (DRF) для взаимодействия со смарт-контрактом ERC-721 NFT на блокчейне Ethereum (тестовая сеть Sepolia). Сервис позволяет создавать новые NFT и получать информацию о существующих NFT через REST API.
 
@@ -141,7 +139,6 @@ Feel free to submit issues or pull requests if you want to contribute to the pro
 - [Настройка Docker](#настройка-docker)
 - [Использование](#использование)
 - [API-эндпоинты](#api-эндпоинты)
-- [Контрибьютинг](#Контрибьютинг)
 
 ## Функции
 
