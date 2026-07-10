@@ -64,11 +64,13 @@ All configuration is read from environment variables (loaded from a `.env` file 
 | `DEBUG`              | no       | `True`/`False`. Defaults to `False`.                      |
 | `DB_ENGINE`          | no       | Defaults to SQLite. Set to `django.db.backends.postgresql` to use Postgres. |
 | `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_HOST`, `DB_PORT` | when using Postgres | Postgres connection settings. |
+| `DB_HOST_PORT`, `APP_PORT` | no (Docker only) | Host ports docker-compose exposes Postgres/the API on. Default `5432`/`8000`. |
 | `INFURA_URL`         | for minting/total supply | RPC endpoint, e.g. an Infura Sepolia project URL. |
 | `CONTRACT_ADDRESS`   | no       | ERC-721 contract address. Defaults to the project's demo Sepolia contract. |
-| `CONTRACT_ABI`       | no       | JSON-encoded contract ABI. Defaults to the demo contract's ABI. |
+| `CONTRACT_ABI`       | no       | JSON-encoded contract ABI. Defaults to [`tokens/contract_abi.json`](tokens/contract_abi.json); set this to use a different contract. |
 | `PUBLIC_ADDRESS`     | for minting | Ethereum address used to sign mint transactions.       |
 | `PRIVATE_KEY`        | for minting | Private key for `PUBLIC_ADDRESS`. Keep this secret.     |
+| `CHAIN_ID`, `GAS_LIMIT` | no    | Defaults to Sepolia (`11155111`) and `300000` gas. Override for a different network. |
 
 ## Docker
 
@@ -80,7 +82,8 @@ docker compose up --build
 
 This starts the Django service (built with `uv`, running as a non-root user) alongside a
 PostgreSQL database, and applies migrations automatically on startup. The API is available at
-[http://localhost:8000/](http://localhost:8000/).
+[http://localhost:8000/](http://localhost:8000/). If ports 5432/8000 are already taken locally,
+set `DB_HOST_PORT`/`APP_PORT` in `.env` to different values.
 
 ## Testing, Linting, Type Checking
 

@@ -19,8 +19,8 @@ def create_token_in_blockchain(token_data: dict[str, str]) -> str:
     max_fee_per_gas = Wei(base_fee_per_gas + web3.to_wei("2", "gwei"))
 
     tx_params: TxParams = {
-        "chainId": 11155111,
-        "gas": 300000,
+        "chainId": settings.CHAIN_ID,
+        "gas": settings.GAS_LIMIT,
         "maxFeePerGas": max_fee_per_gas,
         "maxPriorityFeePerGas": max_priority_fee_per_gas,
         "nonce": nonce,

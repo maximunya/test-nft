@@ -62,7 +62,7 @@ ROOT_URLCONF = "nft_generator.urls"
 WSGI_APPLICATION = "nft_generator.wsgi.application"
 
 # Defaults to a local SQLite file so the project runs with zero setup.
-# Set DB_ENGINE to django.db.backends.postgresql (see .env.docker.template)
+# Set DB_ENGINE to django.db.backends.postgresql (see .env.example)
 # to use Postgres, as the Docker setup does.
 DATABASES = {
     "default": {
@@ -78,9 +78,17 @@ DATABASES = {
 INFURA_URL = os.environ.get("INFURA_URL")
 # Public address of the demo ERC-721 contract on Sepolia; not sensitive data.
 CONTRACT_ADDRESS = os.environ.get("CONTRACT_ADDRESS", "0x399c1448e0F34aB3722e3aFDd21301Ca6cFF4c4a")
-CONTRACT_ABI = json.loads(os.environ.get("CONTRACT_ABI") or "[]")
+# The ABI is public, static contract metadata, not a per-environment secret, so it lives in a
+# version-controlled file. CONTRACT_ABI env var, if set, overrides it (e.g. for a different
+# contract than the bundled demo one).
+CONTRACT_ABI_PATH = BASE_DIR / "tokens" / "contract_abi.json"
+CONTRACT_ABI = json.loads(os.environ.get("CONTRACT_ABI") or CONTRACT_ABI_PATH.read_text())
 PUBLIC_ADDRESS = os.environ.get("PUBLIC_ADDRESS")
 PRIVATE_KEY = os.environ.get("PRIVATE_KEY")
+
+# Sepolia testnet. Override for a different network.
+CHAIN_ID = int(os.environ.get("CHAIN_ID", "11155111"))
+GAS_LIMIT = int(os.environ.get("GAS_LIMIT", "300000"))
 
 TEMPLATES = [
     {
