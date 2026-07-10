@@ -3,6 +3,7 @@ name = "nft-generator"
 version = "0.1.0"
 description = "Django REST service for minting and querying ERC-721 NFTs on Ethereum (Sepolia testnet)"
 readme = "README.md"
+license = "MIT"
 requires-python = ">=3.12"
 dependencies = [
     "django>=5.1,<6",

@@ -1,6 +1,8 @@
 # NFT Generator
 
 ![CI](https://github.com/maximunya/nft-generator/actions/workflows/ci.yml/badge.svg)
+![Python](https://img.shields.io/badge/python-3.12+-blue.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 A Django REST Framework service for minting and querying ERC-721 NFTs on the Ethereum Sepolia
 testnet via [web3.py](https://web3py.readthedocs.io/).
@@ -14,6 +16,7 @@ testnet via [web3.py](https://web3py.readthedocs.io/).
 - [Docker](#docker)
 - [Testing, Linting, Type Checking](#testing-linting-type-checking)
 - [API Endpoints](#api-endpoints)
+- [License](#license)
 
 ## Features
 
@@ -122,3 +125,7 @@ All three run in CI on every push and pull request (see `.github/workflows/ci.ym
 | `/swagger/`  | Swagger UI API documentation.         |
 | `/redoc/`    | ReDoc API documentation.              |
 | `/api-auth/` | DRF browsable API authentication.     |
+
+## License
+
+[MIT](LICENSE)
