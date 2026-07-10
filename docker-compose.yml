@@ -1,24 +1,33 @@
+name: nft-generator
+
 services:
   postgres:
-    image: postgres
-    container_name: postgres
+    image: postgres:16-alpine
+    container_name: nft-generator-postgres
+    env_file:
+      - .env
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     ports:
-      - "5433:5432"
+      - "5432:5432"
     volumes:
       - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   backend:
     build: .
-    container_name: test-nft
+    container_name: nft-generator-backend
     env_file:
-      - .env.docker
+      - .env
     depends_on:
       postgres:
-        condition: service_started
+        condition: service_healthy
     ports:
       - "8000:8000"
     restart: on-failure
