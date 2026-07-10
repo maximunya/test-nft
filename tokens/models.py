@@ -9,9 +9,10 @@ class Token(models.Model):
     media_url = models.URLField(null=False, blank=False)
     owner = models.CharField(max_length=42, null=False, blank=False)
 
-    def __str__(self):
-        return f"Token {self.id} - Owner: {self.owner}"
-
     class Meta:
         verbose_name = "Token"
         verbose_name_plural = "Tokens"
+        ordering = ["-id"]
+
+    def __str__(self) -> str:
+        return f"Token {self.id} - Owner: {self.owner}"
