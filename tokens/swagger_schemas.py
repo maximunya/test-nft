@@ -33,9 +33,7 @@ def total_supply_schema():
             200: Schema(
                 type=TYPE_OBJECT,
                 properties={
-                    "result": Schema(
-                        type=TYPE_INTEGER, description="Total amount of tokens"
-                    )
+                    "result": Schema(type=TYPE_INTEGER, description="Total amount of tokens")
                 },
             )
         }
