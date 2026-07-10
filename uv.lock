@@ -1149,12 +1149,12 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "django", specifier = ">=5.1,<6" },
-    { name = "djangorestframework", specifier = ">=3.15" },
-    { name = "drf-yasg", specifier = ">=1.21" },
-    { name = "gunicorn", specifier = ">=21.2" },
-    { name = "psycopg2-binary", specifier = ">=2.9" },
-    { name = "python-dotenv", specifier = ">=1.0" },
-    { name = "web3", specifier = ">=7.1" },
+    { name = "djangorestframework", specifier = ">=3.15,<4" },
+    { name = "drf-yasg", specifier = ">=1.21,<2" },
+    { name = "gunicorn", specifier = ">=21.2,<27" },
+    { name = "psycopg2-binary", specifier = ">=2.9,<3" },
+    { name = "python-dotenv", specifier = ">=1.0,<2" },
+    { name = "web3", specifier = ">=7.1,<8" },
 ]
 
 [package.metadata.requires-dev]
