@@ -2,6 +2,7 @@ from django.conf import settings
 from django.db import transaction
 from rest_framework import status
 from rest_framework.generics import ListAPIView
+from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from web3 import Web3
@@ -18,7 +19,7 @@ class TokenCreateView(APIView):
 
     @token_create_schema()
     @transaction.atomic()
-    def post(self, request):
+    def post(self, request: Request) -> Response:
         serializer = TokenCreateSerializer(data=request.data)
 
         if not serializer.is_valid():
@@ -29,28 +30,19 @@ class TokenCreateView(APIView):
         unique_hash = generate_unique_hash()
 
         try:
-            token_data = {
-                "unique_hash": unique_hash,
-                "media_url": media_url,
-                "owner": owner
-            }
+            token_data = {"unique_hash": unique_hash, "media_url": media_url, "owner": owner}
 
             tx_hash = create_token_in_blockchain(token_data)
 
             if tx_hash:
                 token = Token.objects.create(
-                    unique_hash=unique_hash,
-                    media_url=media_url,
-                    owner=owner,
-                    tx_hash=tx_hash
+                    unique_hash=unique_hash, media_url=media_url, owner=owner, tx_hash=tx_hash
                 )
             else:
                 raise Exception("Transaction failed: tx_hash is empty")
 
         except Exception as e:
-            return Response(
-                {"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         return Response(TokenSerializer(token).data, status=status.HTTP_201_CREATED)
 
@@ -66,17 +58,14 @@ class TotalSupplyView(APIView):
     """Get total amount of tokens from blockchain"""
 
     @total_supply_schema()
-    def get(self, request):
+    def get(self, request: Request) -> Response:
         web3 = Web3(Web3.HTTPProvider(settings.INFURA_URL))
 
         try:
-            contract = web3.eth.contract(
-                address=settings.CONTRACT_ADDRESS, abi=settings.CONTRACT_ABI
-            )
+            contract_address = Web3.to_checksum_address(settings.CONTRACT_ADDRESS)
+            contract = web3.eth.contract(address=contract_address, abi=settings.CONTRACT_ABI)
             total_supply = contract.functions.totalSupply().call()
         except Exception as e:
-            return Response(
-                {"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         return Response({"result": total_supply}, status=status.HTTP_200_OK)

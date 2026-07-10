@@ -14,7 +14,7 @@ class TokenSerializer(serializers.ModelSerializer):
 class TokenCreateSerializer(serializers.ModelSerializer):
     """Create token serializer"""
 
-    def validate_owner(self, value):
+    def validate_owner(self, value: str) -> str:
         if not value.startswith("0x") or len(value) != 42:
             raise serializers.ValidationError("Invalid Ethereum address format.")
         return value
