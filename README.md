@@ -1,7 +1,7 @@
 # NFT Generator
 
 ![CI](https://github.com/maximunya/nft-generator/actions/workflows/ci.yml/badge.svg)
-![Python](https://img.shields.io/badge/python-3.12+-blue.svg)
+![Python](https://img.shields.io/badge/python-3.12-blue.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 A Django REST Framework service for minting and querying ERC-721 NFTs on the Ethereum Sepolia
